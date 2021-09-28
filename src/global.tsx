@@ -12,7 +12,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body {
     align-items: center;
-    background: #f2f2f2;
+    background: #ffffff;
     color: #3c3c3c;
     font-family: Fraunces, Barlow, "Segoe UI", Roboto, "Segoe UI Emoji", "Segoe UI Symbol";
     /* justify-content: center;
