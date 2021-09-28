@@ -45,9 +45,9 @@ function HeaderComponent() {
             alt="close menu"
             />
             <div className="menu__container">
-              <h4>Home</h4>
-              <h4 className="menu__separator">About Us</h4>
-              <h4>Create Your Plan</h4>
+              <h4><a href="/">home</a></h4>
+              <h4 className="menu__separator"><a href="/about">about us</a></h4>
+              <h4><a href="/subscription">create your plan</a></h4>
             </div>
           </>
         ) : (
@@ -60,9 +60,9 @@ function HeaderComponent() {
         </div>
         {/* Tablet and desktop Menu Section */}
         <div className="main__menu">
-          <h4>Home</h4>
-          <h4 className="main__separator">About Us</h4>
-          <h4>Create Your Plan</h4>
+          <h4><a href="/">home</a></h4>
+          <h4 className="main__separator"><a href="/about">about us</a></h4>
+          <h4><a href="/subscription">create your plan</a></h4>
         </div>
       </div>
     </HeaderContainer>
@@ -94,6 +94,11 @@ const HeaderContainer = styled.div`
     box-shadow: 0px 0px 134px 6px #ffffff;
   }
 
+  .menu__container h4 a {
+    text-decoration: none;
+    text-transform: capitalize;
+  }
+
   .menu__separator {
     margin: 1.5rem auto;
   }
@@ -115,14 +120,19 @@ const HeaderContainer = styled.div`
 
     .main__menu {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
+      gap: 4rem;
       width: 35vw;
     }
 
     .main__menu h4 {
-      color: #83888F;
       font-size: 12px;
       text-transform: uppercase;
+    }
+    
+    .main__menu h4 a {
+      text-decoration: none;
+      color: #83888F;
     }
   }
 `;
