@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import data from '../data.json';
 
+interface IPlanQuestions {
+    question: string;
+    options: {
+        header: string;
+        value: string;
+    }[];
+}
 function Subscription() {
+  const [planQuestions, /*setPlanQuestions*/] = useState<IPlanQuestions[]>(data.StoredQuestions);
+
   return (
     <div>
-      This is subscription
       <CreateWrapper>
         <h2 className="create__header">Create a plan</h2>
         <p className="create__text">Coffee the way you wanted it to be. For coffee delivered tomorrow, or next week. For whatever brew method you use. For choice, for convenience, for quality.</p>
@@ -40,6 +49,29 @@ function Subscription() {
           </div>  
         </div>
       </SubscriptionWrapper>
+
+      {/* Another Section  */}
+      <QuestionsWrapper>
+        {planQuestions.map((question) => (
+          <div className="single__question">
+            <h4 className="question__header">{question.question}</h4>
+            <div className="question__options">
+              {question.options.map((option) => (
+                <div className="single__option">
+                  <h4 className="option__header">
+                    {option.header}
+                  </h4>
+                  <p className="option__value">
+                    {option.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+        ))}
+        
+      </QuestionsWrapper>
     </div>
   )
 }
@@ -89,6 +121,7 @@ const SubscriptionWrapper = styled.div`
   background-color: #2C343E;
   color: #ffffff;
   padding: 3rem 1rem;
+  margin: 8rem auto;
 
   .circle__wrapper {
     display: none;
@@ -167,7 +200,7 @@ const SubscriptionWrapper = styled.div`
   }
 
   @media(min-width: 769px) {
-    margin: 0 2rem;
+    margin: 8rem 2rem;
     padding: 6rem;
 
     .circle__wrapper {
@@ -189,5 +222,41 @@ const SubscriptionWrapper = styled.div`
     .subscription__step p {
       font-size: 16px;
     }
+  }
+`;
+
+const QuestionsWrapper = styled.div`
+  margin: 2rem 1rem;
+  
+  .single__question {
+    margin: 5rem auto;
+  }
+
+  .question__header {
+    color: #83888F;
+    padding-bottom: 1.5rem;
+  }
+
+  .question__options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .single__option {
+    height: 140px;
+    padding: 1.5rem 1rem;
+    background-color: #F4F1EB;
+    border-radius: 8px;
+  }
+
+  .option__header {
+    color: #333D4B;
+    padding-bottom: 0.5rem;
+  }
+
+  .option__value {
+    color: #333D4B;
+    margin-right: 2rem;
   }
 `;
