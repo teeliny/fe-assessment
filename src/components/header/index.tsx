@@ -122,7 +122,7 @@ const HeaderContainer = styled.div`
       display: flex;
       justify-content: flex-end;
       gap: 4rem;
-      width: 35vw;
+      /* width: 35vw; */
     }
 
     .main__menu h4 {
@@ -133,6 +133,12 @@ const HeaderContainer = styled.div`
     .main__menu h4 a {
       text-decoration: none;
       color: #83888F;
+    }
+  }
+
+  @media(min-width: 769px) {
+    .logo {
+      width: calc(20vw - 2rem)
     }
   }
 `;
