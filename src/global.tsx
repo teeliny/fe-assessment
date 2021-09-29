@@ -56,6 +56,9 @@ export const GlobalStyles = createGlobalStyle`
     border-radius: 6px;
     font-family: Fraunces;
     font-weight: 900;
+    padding: 0.75rem 0;
+    width: 217px;
+    border: none;
   }
 
   button:hover {

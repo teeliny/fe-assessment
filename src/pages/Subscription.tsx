@@ -10,15 +10,12 @@ interface IPlanQuestions {
     }[];
 }
 interface IState {
-    'How do you drink your coffee?': string;
-    'What type of coffee?': string;
-    'How much would you like?': string;
-    'Want us to grind them?': string;
-    'How often should we deliver?': string;
+    [key: string]: string
 }
 
 function Subscription() {
-  const [planQuestions, /*setPlanQuestions*/] = useState<IPlanQuestions[]>(data.StoredQuestions);
+  const planQuestions = data.StoredQuestions;
+  const [isCapsule, setIsCapsule] = useState<boolean>(false);
   const [state, setState] = useState<IState>({
     'How do you drink your coffee?': '',
     'What type of coffee?': '',
@@ -26,6 +23,7 @@ function Subscription() {
     'Want us to grind them?': '',
     'How often should we deliver?': ''
   });
+  const stateKeys = Object.keys(state);
 
   const updateState = (key: string, value: string) => {
     setState({
@@ -33,6 +31,15 @@ function Subscription() {
       [key]: value,
     });
   };
+
+  useEffect(() => {
+    if (state['How do you drink your coffee?'] === 'Capsule') {
+      setIsCapsule(true);
+    }
+    else {
+      setIsCapsule(false);
+    }
+  }, [state]);
   
   console.log(state);
   return (
@@ -78,31 +85,31 @@ function Subscription() {
       <QuestionsWrapper>
         <div className="questions__menu">
           {/* Single Question Menu  */}
-          <a href="#question__1" className="menu__container">
+          <a href="#question__1" className={`${state[stateKeys[0]].length > 0 ? 'menu__container filled__menu' : 'menu__container'}`}>
             <h4 className="menu__number">01</h4>
             <h4 className="menu__text">Preferences</h4>
           </a>
           <hr className="question__horizontal" />
           {/* Single Question Menu  */}
-          <a href="#question__2" className="menu__container">
+          <a href="#question__2" className={`${state[stateKeys[1]].length > 0 ? 'menu__container filled__menu' : 'menu__container'}`}>
             <h4 className="menu__number">02</h4>
             <h4 className="menu__text">Bean Type</h4>
           </a>
           <hr className="question__horizontal" />
           {/* Single Question Menu  */}
-          <a href="#question__3" className="menu__container">
+          <a href="#question__3" className={`${state[stateKeys[2]].length > 0 ? 'menu__container filled__menu' : 'menu__container'}`}>
             <h4 className="menu__number">03</h4>
             <h4 className="menu__text">Quantity</h4>
           </a>
           <hr className="question__horizontal" />
           {/* Single Question Menu  */}
-          <a href="#question__4" className="menu__container">
+          <a href="#question__4" className={`${state[stateKeys[3]].length > 0 ? 'menu__container filled__menu' : 'menu__container'}`}>
             <h4 className="menu__number">04</h4>
             <h4 className="menu__text">Grind Option</h4>
           </a>
           <hr className="question__horizontal" />
           {/* Single Question Menu  */}
-          <a href="#question__5" className="menu__container">
+          <a href="#question__5" className={`${state[stateKeys[4]].length > 0 ? 'menu__container filled__menu' : 'menu__container'}`}>
             <h4 className="menu__number">05</h4>
             <h4 className="menu__text">Delivers</h4>
           </a>
@@ -113,6 +120,7 @@ function Subscription() {
               id={`question__${index + 1}`}
               key={index}
               inputData={question}
+              state={state}
               updateState={updateState}
             />
           ))}
@@ -123,16 +131,19 @@ function Subscription() {
             </p>
             <h4 className="summary__text">
               "I drink my coffee as 
-              <span className="summary__variable"> {state['How do you drink your coffee?']}</span>, with a
-              <span className="summary__variable"> {state['What type of coffee?']} </span>type of bean. 
-              <span className="summary__variable"> {state['How much would you like?']} </span>ground ala 
-              <span className="summary__variable"> {state['Want us to grind them?']}</span>, sent to me 
-              <span className="summary__variable"> {state['How often should we deliver?']} </span>."
+              <span className="summary__variable"> {state['How do you drink your coffee?'].length > 0 ? state['How do you drink your coffee?'] : '__________'}</span>, with a
+              <span className="summary__variable"> {state['What type of coffee?'].length > 0 ? state['What type of coffee?'] : '__________'} </span>type of bean. 
+              {!isCapsule && <span className="summary__variable"> {state['How much would you like?'].length > 0 ? state['How much would you like?'] : '__________'} </span>}{`${isCapsule ? '' : 'ground ala'}`}
+              <span className="summary__variable"> {state['Want us to grind them?'].length > 0 ? state['Want us to grind them?'] : '__________'}</span>, sent to me 
+              <span className="summary__variable"> {state['How often should we deliver?'].length > 0 ? state['How often should we deliver?'] : '__________'} </span>."
             </h4>
           </SummaryWrapper>
+          {/* Submit Button Section  */}
+          <div className="submit__button">
+            <button disabled={false}>Create my plan!</button>
+          </div>
         </div>
       </QuestionsWrapper>
-
     </div>
   )
 }
@@ -291,6 +302,12 @@ const SubscriptionWrapper = styled.div`
 
 const QuestionsWrapper = styled.div`
   margin: 2rem 1rem;
+  display: block;
+
+  
+  .questions__menu {
+    display: none;
+  }
   
   .single__question {
     margin: 5rem auto;
@@ -302,6 +319,15 @@ const QuestionsWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
+  }
+  .question__header__disabled {
+    color: #83888F;
+    padding-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.25;
   }
 
   .question__arrow {
@@ -320,6 +346,11 @@ const QuestionsWrapper = styled.div`
     background-color: #F4F1EB;
     border-radius: 8px;
   }
+  
+  .single__option:hover {
+    background-color: #FDD6BA;
+  }
+    
   .selected__option {
     height: 140px;
     padding: 1.5rem 1rem;
@@ -335,6 +366,15 @@ const QuestionsWrapper = styled.div`
   .option__value {
     color: #333D4B;
     margin-right: 2rem;
+  }
+
+  .submit__button {
+    margin: 4rem auto;
+    width: 217px;
+  }
+
+  .submit__button button {
+    font-size: 18px;
   }
 
   @media(min-width: 401px) {
@@ -355,11 +395,15 @@ const QuestionsWrapper = styled.div`
     }
   }
 
-  @media(min-width: 768px) {
+  @media(min-width: 769px) {
     margin: 10rem;
     display: grid;
     grid-template-columns: 16rem 1fr;
     gap: 7rem;
+
+    .questions__menu {
+      display: block;
+    }
     
     .menu__container {
       display: flex;
@@ -367,18 +411,17 @@ const QuestionsWrapper = styled.div`
       align-items: center;
       margin: 1rem auto;
       text-decoration: none;
+      color: #cdcfd1;
+    }
+
+    .filled__menu {
+      color: #333D4B;
     }
 
     .menu__container:first-child {
       margin-top: 0;
     }
 
-    .menu__number {
-      color: #cdcfd1;
-    }
-    .menu__text {
-      color: #cdcfd1;
-    }
     .menu__text:hover {
       color: #83888F;
     }
@@ -456,14 +499,29 @@ function QuestionOptions({ inputOptions, updateState, currentQuestion }: { input
 interface IComplete {
   inputData: IPlanQuestions;
   id: string;
+  state: IState;
   updateState: (key: string, value: string) => void
 }
-function CompleteQuestion({ inputData, id, updateState }: IComplete) {
+function CompleteQuestion({ inputData, id, state, updateState }: IComplete) {
   const [toggleArrow, setToggleArrow] = useState<boolean>(false);
+  const [checkDisable, setCheckDisable] = useState<boolean>(false);
+  
+  useEffect(() => {
+    if (state['How do you drink your coffee?'] === 'Capsule' && inputData.question === 'Want us to grind them?') {
+      setCheckDisable(true);
+      setToggleArrow(false);
+    }
+    else {
+      setCheckDisable(false);
+    }
+  }, [inputData.question, state]);
 
   return (
     <div id={id} className="single__question">
-      <div className="question__header" onClick={() => setToggleArrow(!toggleArrow)}>
+      <div className={checkDisable ? 'question__header__disabled' : 'question__header'} onClick={() => {
+        if (checkDisable) setToggleArrow(false)
+        else setToggleArrow(!toggleArrow)
+      }}>
         <h4>{inputData.question}</h4>
         <img
           className={toggleArrow ? "question__arrow" : ""}
