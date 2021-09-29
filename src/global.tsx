@@ -59,7 +59,7 @@ export const GlobalStyles = createGlobalStyle`
     padding: 1rem 0;
     width: 217px;
     border: none;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 
   button:hover {

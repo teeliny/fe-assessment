@@ -45,7 +45,7 @@ export const BannerWrapper = styled.div`
   @media(min-width: 401px) {
     background-image: url(${process.env.PUBLIC_URL + '/assets/home/tablet/image-hero-coffeepress.jpg'});
     align-items: flex-start;
-    padding: 6rem 6rem;
+    padding: 6rem 4rem;
     
     .banner__header {
       text-align: left;
@@ -167,9 +167,9 @@ export const ChooseWrapper = styled.div`
   height: 103.5rem;
   position: relative;
   margin-bottom: 83rem;
+  padding: 6rem auto;
 
   .choose__text {
-    /* margin: 0 1.5rem; */
     padding: 4rem 3rem 4rem 3rem;
     text-align: center;
   }
@@ -183,7 +183,7 @@ export const ChooseWrapper = styled.div`
     flex-direction: column;
     gap: 2rem;
     position: absolute;
-    top: 26.5rem;
+    top: 27.5rem;
   }
 
   .card__container {
@@ -193,7 +193,8 @@ export const ChooseWrapper = styled.div`
     justify-content: center;
     align-items: center;
     margin: 0 1.5rem;
-    padding: 12rem 6rem 9rem 6rem;
+    padding: 12rem 0 9rem 0;
+    border-radius: 8px;
   }
 
   .image__container {
@@ -202,8 +203,73 @@ export const ChooseWrapper = styled.div`
     margin-bottom: 10em;
   }
 
+  .card__text__wrapper {
+    text-align: center;
+  }
+
   .card__header {
     margin-bottom: 3.5rem;
+  }
+
+  @media(min-width: 401px) {
+    height: 51rem;
+    margin-bottom: 32rem;
+
+    .cards__wrapper {
+      top: 25.5rem;
+    }
+
+    .card__text__wrapper {
+      text-align: left;
+    }
+
+    .card__container {
+      flex-direction: row;
+      gap: 4rem;
+      margin: 0 4rem;
+      padding: 4rem 3rem;
+      align-items: center;
+    }
+
+    .choose__text {
+      padding: 4rem 7rem 4rem 7rem;
+    }
+
+    .image__container {
+      margin-bottom: 0;
+    }
+
+    .card__header {
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media(min-width: 769px) {
+    height: 33rem;
+    margin-bottom: 12rem;
+    .choose__text {
+      padding: 4rem 32% 4rem 32%;
+    }
+
+    .cards__wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      margin: 0 6rem;
+      top: 20rem;
+    }
+
+    .card__container {
+      flex-direction: column;
+      margin: 0 1.5rem;
+      padding: 3rem 3rem 3rem 3rem;
+      border-radius: 8px;
+      align-items: center;
+    }
+
+    .card__text__wrapper {
+      text-align: center;
+    }
   }
 `;
 
@@ -231,7 +297,9 @@ export const SubscriptionWrapper = styled.div`
     width: 31px;
     height: 31px;
     border-radius: 50%;
-    border: 2px solid #0E8784
+    border: 2px solid #0E8784;
+    z-index: 9;
+    background-color: #fff;
   }
 
   .subscription__line {
@@ -275,6 +343,9 @@ export const SubscriptionWrapper = styled.div`
 
     .subscription__line {
       display: block;
+      top: 0.5rem;
+      left: 2.35rem;
+      width: 62.67%;
     }
     .group__steps {
       display: grid;
@@ -307,6 +378,7 @@ export const SubscriptionWrapper = styled.div`
 
     .subscription__line {
       width: calc(66.67% + 2.5rem);
+      left: 1.35rem;
     }
 
     .group__steps {

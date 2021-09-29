@@ -30,7 +30,7 @@ function Home() {
           </div>
           {/* Single Collection */}
           <div className="single__content">
-            <img className="content__image" src={`${process.env.PUBLIC_URL}/assets/home/desktop/image-gran-espresso.png`} alt="planalto" />
+            <img className="content__image" src={`${process.env.PUBLIC_URL}/assets/home/desktop/image-planalto.png`} alt="planalto" />
             <div className="text__container">
               <h4 className="text__header">Planalto</h4>
               <p className="text__content">
@@ -75,8 +75,10 @@ function Home() {
             <div className="image__container">
               <img src={`${process.env.PUBLIC_URL}/assets/home/desktop/icon-coffee-bean.svg`} alt="bean" />
             </div>
-            <h4 className="card__header">Best Quality</h4>
-            <p className="card__value">Discover an endless variety of the world’s best artisan coffee from each of our roasters.</p>
+            <div className="card__text__wrapper">
+              <h4 className="card__header">Best Quality</h4>
+              <p className="card__value">Discover an endless variety of the world’s best artisan coffee from each of our roasters.</p>
+            </div>
           </div>
 
           
@@ -84,16 +86,20 @@ function Home() {
             <div className="image__container">
               <img src={`${process.env.PUBLIC_URL}/assets/home/desktop/icon-gift.svg`} alt="bean" />
             </div>
-            <h4 className="card__header">Exclusive benefits</h4>
-            <p className="card__value">Special offers and swag when you subscribe, including 30% off your first shipment.</p>
+            <div className="card__text__wrapper">
+              <h4 className="card__header">Exclusive benefits</h4>
+              <p className="card__value">Special offers and swag when you subscribe, including 30% off your first shipment.</p>
+            </div>
           </div>
           
           <div className="card__container">
             <div className="image__container">
               <img src={`${process.env.PUBLIC_URL}/assets/home/desktop/icon-truck.svg`} alt="bean" />
             </div>
-            <h4 className="card__header">Free shipping</h4>
-            <p className="card__value">We cover the cost and coffee is delivered fast. Peak freshness: guaranteed.</p>
+            <div className="card__text__wrapper">
+              <h4 className="card__header">Free shipping</h4>
+              <p className="card__value">We cover the cost and coffee is delivered fast. Peak freshness: guaranteed.</p>
+            </div>
           </div>
         </div>
       </ChooseWrapper>
