@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import data from '../data.json';
 
@@ -9,17 +9,41 @@ interface IPlanQuestions {
         value: string;
     }[];
 }
+interface IState {
+    'How do you drink your coffee?': string;
+    'What type of coffee?': string;
+    'How much would you like?': string;
+    'Want us to grind them?': string;
+    'How often should we deliver?': string;
+}
+
 function Subscription() {
   const [planQuestions, /*setPlanQuestions*/] = useState<IPlanQuestions[]>(data.StoredQuestions);
+  const [state, setState] = useState<IState>({
+    'How do you drink your coffee?': '',
+    'What type of coffee?': '',
+    'How much would you like?': '',
+    'Want us to grind them?': '',
+    'How often should we deliver?': ''
+  });
 
+  const updateState = (key: string, value: string) => {
+    setState({
+      ...state,
+      [key]: value,
+    });
+  };
+  
+  console.log(state);
   return (
     <div>
+      {/* Subscription Banner section */}
       <CreateWrapper>
         <h2 className="create__header">Create a plan</h2>
         <p className="create__text">Coffee the way you wanted it to be. For coffee delivered tomorrow, or next week. For whatever brew method you use. For choice, for convenience, for quality.</p>
       </CreateWrapper>
 
-      {/* Another section */}
+      {/* Subscription Steps section */}
       <SubscriptionWrapper>
         <div className="circle__wrapper">
           <hr className="subscription__line"/>
@@ -50,28 +74,65 @@ function Subscription() {
         </div>
       </SubscriptionWrapper>
 
-      {/* Another Section  */}
+      {/* Question Section  */}
       <QuestionsWrapper>
-        {planQuestions.map((question) => (
-          <div className="single__question">
-            <h4 className="question__header">{question.question}</h4>
-            <div className="question__options">
-              {question.options.map((option) => (
-                <div className="single__option">
-                  <h4 className="option__header">
-                    {option.header}
-                  </h4>
-                  <p className="option__value">
-                    {option.value}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-        ))}
-        
+        <div className="questions__menu">
+          {/* Single Question Menu  */}
+          <a href="#question__1" className="menu__container">
+            <h4 className="menu__number">01</h4>
+            <h4 className="menu__text">Preferences</h4>
+          </a>
+          <hr className="question__horizontal" />
+          {/* Single Question Menu  */}
+          <a href="#question__2" className="menu__container">
+            <h4 className="menu__number">02</h4>
+            <h4 className="menu__text">Bean Type</h4>
+          </a>
+          <hr className="question__horizontal" />
+          {/* Single Question Menu  */}
+          <a href="#question__3" className="menu__container">
+            <h4 className="menu__number">03</h4>
+            <h4 className="menu__text">Quantity</h4>
+          </a>
+          <hr className="question__horizontal" />
+          {/* Single Question Menu  */}
+          <a href="#question__4" className="menu__container">
+            <h4 className="menu__number">04</h4>
+            <h4 className="menu__text">Grind Option</h4>
+          </a>
+          <hr className="question__horizontal" />
+          {/* Single Question Menu  */}
+          <a href="#question__5" className="menu__container">
+            <h4 className="menu__number">05</h4>
+            <h4 className="menu__text">Delivers</h4>
+          </a>
+        </div>
+        <div>
+          {planQuestions.map((question, index) => (
+            <CompleteQuestion
+              id={`question__${index + 1}`}
+              key={index}
+              inputData={question}
+              updateState={updateState}
+            />
+          ))}
+      {/* Subscription Summary Section */}
+          <SummaryWrapper>
+            <p className="summary__header">
+              Order Summary
+            </p>
+            <h4 className="summary__text">
+              "I drink my coffee as 
+              <span className="summary__variable"> {state['How do you drink your coffee?']}</span>, with a
+              <span className="summary__variable"> {state['What type of coffee?']} </span>type of bean. 
+              <span className="summary__variable"> {state['How much would you like?']} </span>ground ala 
+              <span className="summary__variable"> {state['Want us to grind them?']}</span>, sent to me 
+              <span className="summary__variable"> {state['How often should we deliver?']} </span>."
+            </h4>
+          </SummaryWrapper>
+        </div>
       </QuestionsWrapper>
+
     </div>
   )
 }
@@ -90,6 +151,7 @@ const CreateWrapper = styled.div`
 
   .create__header {
     margin-bottom: 2rem;
+    color: #ffffff;
   }
 
   .create__text {
@@ -217,10 +279,12 @@ const SubscriptionWrapper = styled.div`
 
     .step__header {
       font-size: 28px;
+      width: 60%;
     }
 
     .subscription__step p {
       font-size: 16px;
+      width: 60%;
     }
   }
 `;
@@ -235,6 +299,13 @@ const QuestionsWrapper = styled.div`
   .question__header {
     color: #83888F;
     padding-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .question__arrow {
+    transform: rotate(180deg);
   }
 
   .question__options {
@@ -249,6 +320,12 @@ const QuestionsWrapper = styled.div`
     background-color: #F4F1EB;
     border-radius: 8px;
   }
+  .selected__option {
+    height: 140px;
+    padding: 1.5rem 1rem;
+    background-color: #0E8784;
+    border-radius: 8px;
+  }
 
   .option__header {
     color: #333D4B;
@@ -259,4 +336,141 @@ const QuestionsWrapper = styled.div`
     color: #333D4B;
     margin-right: 2rem;
   }
+
+  @media(min-width: 401px) {
+    .question__options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .single__option {
+      height: 250px;
+    }
+     .selected__option {
+       height: 250px;
+     }
+
+    .option__header {
+      padding-bottom: 1.5rem;
+    }
+  }
+
+  @media(min-width: 768px) {
+    margin: 10rem;
+    display: grid;
+    grid-template-columns: 16rem 1fr;
+    gap: 7rem;
+    
+    .menu__container {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      margin: 1rem auto;
+      text-decoration: none;
+    }
+
+    .menu__container:first-child {
+      margin-top: 0;
+    }
+
+    .menu__number {
+      color: #cdcfd1;
+    }
+    .menu__text {
+      color: #cdcfd1;
+    }
+    .menu__text:hover {
+      color: #83888F;
+    }
+
+    .question__horizontal {
+      border: 1px solid #83888F;
+      opacity: 0.25;
+    }
+
+    .single__question:first-child {
+      margin-top: 0;
+    }
+  }
+
 `;
+
+const SummaryWrapper = styled.div`
+  background-color: #2C343E;
+  padding: 2rem 4rem;
+
+  .summary__header {
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 1rem;
+  }
+
+  .summary__text {
+    color: #ffffff;
+  }
+
+  .summary__variable {
+    color: #0E8784;
+  }
+`;
+
+interface IOptions {
+  header: string;
+  value: string;
+}
+
+function QuestionOptions({ inputOptions, updateState, currentQuestion }: { inputOptions: IOptions[]; currentQuestion: string; updateState: (key: string, value: string) => void}) {
+  const defaultBackground = ['single__option', 'single__option', 'single__option'];
+  const [backgroundShade, setBackgroundShade] = useState<string[]>(defaultBackground);
+  const [baseIndex, setBaseIndex] = useState<number | null>(null);
+
+  const handleSelectOption = (index: number, currentQuestion: string, answer: string) => {
+    setBaseIndex(index);
+    updateState(currentQuestion, answer)
+  }
+
+  useEffect(() => {
+    if (baseIndex !== null) {
+      const newBackground = ['single__option', 'single__option', 'single__option'];
+      newBackground[baseIndex] = 'selected__option';
+      setBackgroundShade(newBackground);
+    }
+  }, [baseIndex]);
+  
+  return (
+    <div className="question__options">
+      {inputOptions.map((option, index) => (
+        <div key={index} className={`${backgroundShade[index]}`} onClick={() => handleSelectOption(index, currentQuestion, option.header)}>
+          <h4 className="option__header">
+            {option.header}
+          </h4>
+          <p className="option__value">
+            {option.value}
+          </p>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+interface IComplete {
+  inputData: IPlanQuestions;
+  id: string;
+  updateState: (key: string, value: string) => void
+}
+function CompleteQuestion({ inputData, id, updateState }: IComplete) {
+  const [toggleArrow, setToggleArrow] = useState<boolean>(false);
+
+  return (
+    <div id={id} className="single__question">
+      <div className="question__header" onClick={() => setToggleArrow(!toggleArrow)}>
+        <h4>{inputData.question}</h4>
+        <img
+          className={toggleArrow ? "question__arrow" : ""}
+          src={`${process.env.PUBLIC_URL}/assets/plan/desktop/icon-arrow.svg`}
+          alt="arrow" />
+      </div>
+      {toggleArrow && <QuestionOptions inputOptions={inputData.options} updateState={updateState} currentQuestion={inputData.question} />}
+    </div>
+  )
+}
