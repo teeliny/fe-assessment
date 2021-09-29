@@ -16,9 +16,10 @@ interface IComplete {
   inputData: IPlanQuestions;
   id: string;
   state: IState;
+  currentPrices: number[];
   updateState: (key: string, value: string) => void
 }
-function SingleCompleteQuestion({ inputData, id, state, updateState }: IComplete) {
+function SingleCompleteQuestion({ inputData, id, state, currentPrices, updateState }: IComplete) {
   const [toggleArrow, setToggleArrow] = useState<boolean>(false);
   const [checkDisable, setCheckDisable] = useState<boolean>(false);
   
@@ -44,7 +45,7 @@ function SingleCompleteQuestion({ inputData, id, state, updateState }: IComplete
           src={`${process.env.PUBLIC_URL}/assets/plan/desktop/icon-arrow.svg`}
           alt="arrow" />
       </div>
-      {toggleArrow && <QuestionOptions inputOptions={inputData.options} updateState={updateState} currentQuestion={inputData.question} />}
+      {toggleArrow && <QuestionOptions inputOptions={inputData.options} updateState={updateState} currentQuestion={inputData.question} currentPrices={currentPrices} />}
     </div>
   )
 }

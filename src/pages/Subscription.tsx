@@ -14,6 +14,7 @@ function Subscription() {
   const [amount, setAmount] = useState<number>(0.00);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [currentPrices, setCurrentPrices] = useState<number[]>([7.20, 9.60, 12.00]);
   const [state, setState] = useState<IState>({
     'How do you drink your coffee?': '',
     'What type of coffee?': '',
@@ -42,6 +43,17 @@ function Subscription() {
     }
   }, [state]);
 
+  // Get the prices for the quantity selected
+  useEffect(() => {
+    if (state['How much would you like?'].length > 0) {
+      const quantity = state['How much would you like?'];
+      const prices = JSON.parse(JSON.stringify(data.prices));
+      const currentPlan = prices[quantity];
+      const presentValues: number[] = Object.values(currentPlan);
+      setCurrentPrices(presentValues);
+    }
+  }, [state])
+
   // Check if both quantity and duration are supplied
   useEffect(() => {
     if (state['How much would you like?'].length > 0 && state['How often should we deliver?'].length > 0) {
@@ -58,7 +70,7 @@ function Subscription() {
         setAmount(prices[quantity][duration] * 1);
       }
     }
-  }, [state])
+  }, [state]);
 
   // Check if correctly filled before enabling button
   useEffect(() => {
@@ -74,7 +86,7 @@ function Subscription() {
     else {
       setIsSubmitting(false);
     }
-  }, [state])
+  }, [state]);
 
   return (
     <div style={{width: '100vw'}}>
@@ -157,6 +169,7 @@ function Subscription() {
               inputData={question}
               state={state}
               updateState={updateState}
+              currentPrices={currentPrices}
             />
           ))}
       {/* Subscription Summary Section */}
