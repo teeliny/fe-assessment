@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import {HomeWrapper, BannerWrapper, CollectionWrapper, ChooseWrapper, SubscriptionWrapper} from '../components/styles/home.style'
 
 function Home() {
   return (
@@ -62,206 +62,79 @@ function Home() {
         </div>
       </CollectionWrapper>
 
+      <ChooseWrapper>
+        <div className="choose__text">
+          <h4 className="choose__header">Why choose us?</h4>
+          <p className="choose__value">A large part of our role is choosing which particular coffees will be featured 
+            in our range. This means working closely with the best coffee growers to give 
+            you a more impactful experience on every level.
+          </p>
+        </div>
+        <div className="cards__wrapper">
+          <div className="card__container">
+            <div className="image__container">
+              <img src={`${process.env.PUBLIC_URL}/assets/home/desktop/icon-coffee-bean.svg`} alt="bean" />
+            </div>
+            <h4 className="card__header">Best Quality</h4>
+            <p className="card__value">Discover an endless variety of the world’s best artisan coffee from each of our roasters.</p>
+          </div>
 
-      Why choose us?
-
-      A large part of our role is choosing which particular coffees will be featured 
-      in our range. This means working closely with the best coffee growers to give 
-      you a more impactful experience on every level.
-
-      Best quality
-      Discover an endless variety of the world’s best artisan coffee from each of our roasters.
-
-      Exclusive benefits
-      Special offers and swag when you subscribe, including 30% off your first shipment.
-
-      Free shipping 
-      We cover the cost and coffee is delivered fast. Peak freshness: guaranteed.
-
-      How it works
-
-      01
-      Pick your coffee
-      Select from our evolving range of artisan coffees. Our beans are ethically 
-      sourced and we pay fair prices for them. There are new coffees in all profiles 
-      every month for you to try out.
-
-      02
-      Choose the frequency
-      Customize your order frequency, quantity, even your roast style and grind type. 
-      Pause, skip or cancel your subscription with no commitment through our online portal.
-
-      03
-      Receive and enjoy!
-      We ship your package within 48 hours, freshly roasted. Sit back and enjoy award-winning 
-      world-class coffees curated to provide a distinct tasting experience.
-
-      Create your plan
-    </HomeWrapper>
+          
+          <div className="card__container">
+            <div className="image__container">
+              <img src={`${process.env.PUBLIC_URL}/assets/home/desktop/icon-gift.svg`} alt="bean" />
+            </div>
+            <h4 className="card__header">Exclusive benefits</h4>
+            <p className="card__value">Special offers and swag when you subscribe, including 30% off your first shipment.</p>
+          </div>
+          
+          <div className="card__container">
+            <div className="image__container">
+              <img src={`${process.env.PUBLIC_URL}/assets/home/desktop/icon-truck.svg`} alt="bean" />
+            </div>
+            <h4 className="card__header">Free shipping</h4>
+            <p className="card__value">We cover the cost and coffee is delivered fast. Peak freshness: guaranteed.</p>
+          </div>
+        </div>
+      </ChooseWrapper>
     
+      {/* Subscription Steps section */}
+      <SubscriptionWrapper>
+        <h4 className="main__subscribe">How it works</h4>
+        <div className="circle__wrapper">
+          <hr className="subscription__line"/>
+          <div className="circle"></div>
+          <div className="circle"></div>
+          <div className="circle"></div>
+        </div>
+        <div className="group__steps">
+          {/* Single row */}
+          <div className="subscription__step">
+            <h1 className="step">01</h1>
+            <h4 className="step__header">Pick your coffee</h4>
+            <p>Select from our evolving range of artisan coffees. Our beans are ethically sourced and we pay fair prices for them. There are new coffees in all profiles every month for you to try out.</p>
+          </div>
+          {/* Single row */}
+          <div className="subscription__step">
+            <h1 className="step">02</h1>
+            <h4 className="step__header">Choose the frequency</h4>
+            <p>Customize your order frequency, quantity, even your roast style and grind type. Pause, skip or cancel your subscription with no commitment through our online portal.</p>
+          </div>
+          {/* Single row */}
+          <div className="subscription__step">
+            <h1 className="step">03</h1>
+            <h4 className="step__header">Receive and enjoy!</h4>
+            <p>We ship your package within 48 hours, freshly roasted. Sit back and enjoy award-winning 
+            world-class coffees curated to provide a distinct tasting experience.</p>
+          </div>  
+      </div>
+      <button>Create your plan</button>
+      </SubscriptionWrapper>
+     
+    </HomeWrapper>
   )
 }
 
 export default Home;
 
 
-const HomeWrapper = styled.div`
-  margin: 0 1.5rem;
-
-
-  @media(min-width: 401px) {
-    margin: 0 2.5rem;
-  }
-
-  @media(min-width: 769px) {
-    margin: 0 5rem;
-  }
-`;
-
-const BannerWrapper = styled.div`
-  background-image: url(${process.env.PUBLIC_URL + '/assets/home/mobile/image-hero-coffeepress.jpg'});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 6rem 1.5rem;
-  color: #ffffff;
-
-  .banner__header {
-    text-align: center;
-  }
-  
-  .banner__text {
-    text-align: center;
-    margin-top: 2.5rem;
-    margin-bottom: 3.5rem;
-    color: #FEFCF7;
-    font-family: Barlow;
-  }
-
-  .banner__button {
-    font-size: 1.5rem;
-  }
-
-  @media(min-width: 401px) {
-    background-image: url(${process.env.PUBLIC_URL + '/assets/home/tablet/image-hero-coffeepress.jpg'});
-    align-items: flex-start;
-    padding: 6rem 6rem;
-    
-    .banner__header {
-      text-align: left;
-      width: 60%;
-    }
-    
-    .banner__text {
-      text-align: left;
-      width: 70%;
-    }
-  }
-
-
-  @media(min-width: 769px) {
-    background-image: url(${process.env.PUBLIC_URL + '/assets/home/desktop/image-hero-coffeepress.jpg'});
-    padding: 6rem 6rem;
-
-    .banner__header {
-      font-size: 4rem;
-      width: 30%;
-      line-height: 1.05;
-    }
-
-    .banner__text {
-      width: 30%;
-      font-size: 1rem;
-      margin-bottom: 5rem;
-    }
-  }
-`;
-
-const CollectionWrapper = styled.div`
-  position: relative;
-  margin-left: 3rem;
-  margin-right: 3rem;
-
-  .collection__header {
-    text-transform: lowercase;
-    font-size: 4.2rem;
-    color: #83888F;
-    box-shadow: 0 -3px 10px rgba(0 0 0 0.2);; 
-  }
-  .collection__content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .single__content {
-    text-align: center;
-  }
-
-  .content__image {
-    width: 200px;
-    height: 150px;
-    margin-top: 1.5rem;
-  }
-
-  .text__header {
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .text__content {
-    margin-bottom: 3rem;
-  }
-
-  @media(min-width: 401px) {
-
-    .collection__header {
-      text-align: center;
-      font-size: 5rem;
-      letter-spacing: 12px;
-    }
-    .single__content {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      text-align: left;
-    }
-
-    .content__image {
-      width: 255px;
-      height: 193px;
-      margin-top: 1.5rem;
-    }
-  }
-
-  @media(min-width: 769px) {
-    margin: 6rem auto;
-
-    .collection__header {
-      font-size: 7rem;
-      letter-spacing: 20px;
-    }
-    
-    .single__content {
-      display: block;
-      text-align: center;
-    }
-
-    .collection__content {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .text__content {
-      width: 255px;
-      margin: 0 auto;
-    }
-  }
-`;

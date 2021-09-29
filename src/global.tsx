@@ -17,8 +17,6 @@ export const GlobalStyles = createGlobalStyle`
     font-family: Fraunces, Barlow, "Segoe UI", Roboto, "Segoe UI Emoji", "Segoe UI Symbol";
     width: 100vw;
     overflow-x: hidden;
-    /* justify-content: center;
-    text-rendering: optimizeLegibility; */
   }
 
   html {
@@ -58,9 +56,10 @@ export const GlobalStyles = createGlobalStyle`
     border-radius: 6px;
     font-family: Fraunces;
     font-weight: 900;
-    padding: 0.75rem 0;
+    padding: 1rem 0;
     width: 217px;
     border: none;
+    font-size: 1.75rem;
   }
 
   button:hover {
@@ -72,11 +71,15 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   
-  @media(max-width: 800px) {
-    font-size: 80%;
+  @media(max-width: 768px) {
+    html {
+      font-size: 80%;
+    }
   }
 
-  @media(max-width: 500px) {
-    font-size: 60%;
+  @media(max-width: 400px) {
+    html {
+      font-size: 60%;
+    }
   }
 `
