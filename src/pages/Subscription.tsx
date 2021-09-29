@@ -16,6 +16,9 @@ interface IState {
 function Subscription() {
   const planQuestions = data.StoredQuestions;
   const [isCapsule, setIsCapsule] = useState<boolean>(false);
+  const [amount, setAmount] = useState<number>(0.00);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const [state, setState] = useState<IState>({
     'How do you drink your coffee?': '',
     'What type of coffee?': '',
@@ -23,8 +26,10 @@ function Subscription() {
     'Want us to grind them?': '',
     'How often should we deliver?': ''
   });
+  // Get keys and use it to update Form menu
   const stateKeys = Object.keys(state);
 
+  // Function that update the fields for the summary section
   const updateState = (key: string, value: string) => {
     setState({
       ...state,
@@ -32,6 +37,7 @@ function Subscription() {
     });
   };
 
+  // Check if capsule is selected or not. This help disabling the grind option
   useEffect(() => {
     if (state['How do you drink your coffee?'] === 'Capsule') {
       setIsCapsule(true);
@@ -40,10 +46,44 @@ function Subscription() {
       setIsCapsule(false);
     }
   }, [state]);
-  
-  console.log(state);
+
+  // Check if both quantity and duration are supplied
+  useEffect(() => {
+    if (state['How much would you like?'].length > 0 && state['How often should we deliver?'].length > 0) {
+      const quantity: string = state['How much would you like?'];
+      const duration = state['How often should we deliver?'];
+      const prices = JSON.parse(JSON.stringify(data.prices));
+      if (duration.includes('Every week')) {
+        setAmount(prices[quantity][duration] * 4);
+      }
+      if (duration.includes('Every 2 weeks')) {
+        setAmount(prices[quantity][duration] * 2);
+      }
+      if (duration.includes('Every month')) {
+        setAmount(prices[quantity][duration] * 1);
+      }
+    }
+  }, [state])
+
+  // Check if correctly filled before enabling button
+  useEffect(() => {
+    const stateValues = Object.values(state);
+    // Remove grind option if capsule is selected
+    if (stateValues[0] === 'Capsule') {
+      stateValues.splice(3, 1);
+    }
+    const checkIfFilled = stateValues.every(value => value.length > 0);
+    if (checkIfFilled) {
+      setIsSubmitting(true);
+    }
+    else {
+      setIsSubmitting(false);
+    }
+  }, [state])
+  console.log(state)
   return (
-    <div>
+    <div style={{width: '100vw'}}>
+      {openModal && <CheckOutModal state={state} isCapsule={isCapsule} amount={amount} />}
       {/* Subscription Banner section */}
       <CreateWrapper>
         <h2 className="create__header">Create a plan</h2>
@@ -133,14 +173,14 @@ function Subscription() {
               "I drink my coffee as 
               <span className="summary__variable"> {state['How do you drink your coffee?'].length > 0 ? state['How do you drink your coffee?'] : '__________'}</span>, with a
               <span className="summary__variable"> {state['What type of coffee?'].length > 0 ? state['What type of coffee?'] : '__________'} </span>type of bean. 
-              {!isCapsule && <span className="summary__variable"> {state['How much would you like?'].length > 0 ? state['How much would you like?'] : '__________'} </span>}{`${isCapsule ? '' : 'ground ala'}`}
-              <span className="summary__variable"> {state['Want us to grind them?'].length > 0 ? state['Want us to grind them?'] : '__________'}</span>, sent to me 
+              <span className="summary__variable"> {state['How much would you like?'].length > 0 ? state['How much would you like?'] : '__________'} </span>{`${isCapsule ? '' : 'ground ala'}`}
+              {!isCapsule && <span className="summary__variable"> {state['Want us to grind them?'].length > 0 ? state['Want us to grind them?'] : '__________'}</span>}, sent to me 
               <span className="summary__variable"> {state['How often should we deliver?'].length > 0 ? state['How often should we deliver?'] : '__________'} </span>."
             </h4>
           </SummaryWrapper>
           {/* Submit Button Section  */}
           <div className="submit__button">
-            <button disabled={false}>Create my plan!</button>
+            <button disabled={!isSubmitting} onClick={() => setOpenModal(true)}>Create my plan!</button>
           </div>
         </div>
       </QuestionsWrapper>
@@ -532,3 +572,117 @@ function CompleteQuestion({ inputData, id, state, updateState }: IComplete) {
     </div>
   )
 }
+
+function CheckOutModal({ state, isCapsule, amount }: { state: IState; isCapsule: boolean; amount: number }) {
+ 
+  return (
+    <ModalWrapper>
+      <div className="inner__wrapper">
+        <div className="modal__header">
+          <h3>Order Summary</h3>
+        </div>
+        <div className="modal__summary">
+          <h4 className="summary__text">
+            "I drink my coffee as 
+            <span className="summary__variable"> {state['How do you drink your coffee?'].length > 0 ? state['How do you drink your coffee?'] : '__________'}</span>, with a
+            <span className="summary__variable"> {state['What type of coffee?'].length > 0 ? state['What type of coffee?'] : '__________'} </span>type of bean. 
+            <span className="summary__variable"> {state['How much would you like?'].length > 0 ? state['How much would you like?'] : '__________'} </span>{`${isCapsule ? '' : 'ground ala'}`}
+            {!isCapsule && <span className="summary__variable"> {state['Want us to grind them?'].length > 0 ? state['Want us to grind them?'] : '__________'}</span>}, sent to me 
+            <span className="summary__variable"> {state['How often should we deliver?'].length > 0 ? state['How often should we deliver?'] : '__________'} </span>."
+          </h4>
+        </div>
+        <p className="modal__subtext">
+          Is this correct? You can proceed to checkout or go back
+          to plan selection if something is off. Subscription
+          discount codes can also be redeemed at the checkout.
+        </p>
+        <div className="modal__button">
+          <h3 className="amount">${amount.toFixed(2)} / mo</h3>
+          <button>Checkout</button>
+        </div>
+        
+      </div>
+    </ModalWrapper>
+  )
+}
+
+const ModalWrapper = styled.div`
+  /* position: absolute; */
+  z-index: 9;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  background: #ff0;
+
+  .inner__wrapper {
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+  }
+
+  .modal__header {
+    padding: 0 1.5rem;
+    background-color: #2C343E;
+    border-top: 0.5rem;
+  }
+  
+  .modal__header h3 {
+    color: #ffffff;
+    padding: 1rem 0;
+    text-align: left;
+  }
+
+  .modal__summary {
+    margin: 3rem 0 1rem 0;
+  }
+
+  .summary__text {
+    background-color: #ffffff;
+    color: #83888F;
+  }
+
+  .summary__variable {
+    color: #0E8784;
+  }
+
+  .modal__subtext {
+    padding: 0 1.5rem;
+    font-family: Barlow;
+  }
+
+  .modal__button {
+    display: block;
+    padding: 0 1.5rem;
+    margin: 3rem auto;
+  }
+
+  .modal__button button {
+    font-size: 18px;
+  }
+
+  @media(min-width: 401px) {
+
+    .inner__wrapper {
+      width: 540px;
+    }
+    
+    .modal__header {
+      padding: 0 3.5rem;
+    }
+    .modal__summary {
+      padding: 0 3.5rem;
+    }
+    .modal__subtext {
+      padding: 0 3.5rem;
+    }
+    .modal__button {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      padding: 0 3.5rem;
+      align-items: center;
+    }
+  }
+`;

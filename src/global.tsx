@@ -15,6 +15,8 @@ export const GlobalStyles = createGlobalStyle`
     background: #ffffff;
     color: #3c3c3c;
     font-family: Fraunces, Barlow, "Segoe UI", Roboto, "Segoe UI Emoji", "Segoe UI Symbol";
+    width: 100vw;
+    overflow-x: hidden;
     /* justify-content: center;
     text-rendering: optimizeLegibility; */
   }
