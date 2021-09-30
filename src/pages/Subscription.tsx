@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CreateWrapper, SubscriptionWrapper, QuestionsWrapper, SummaryWrapper } from '../components/styles/subscriptions.style';
 import CheckOutModal from '../components/CheckOutModal';
 import SingleCompleteQuestion from '../components/SingleCompleteQuestion';
+import BannerSection from '../components/banner';
 import data from '../data.json';
 
 interface IState {
@@ -22,6 +23,13 @@ function Subscription() {
     'Want us to grind them?': '',
     'How often should we deliver?': ''
   });
+
+  // Images for the banner section
+  const imageUrls = [
+    `${process.env.PUBLIC_URL}/assets/plan/mobile/image-hero-blackcup.jpg`,
+    `${process.env.PUBLIC_URL}/assets/plan/tablet/image-hero-blackcup.jpg`,
+    `${process.env.PUBLIC_URL}/assets/plan/desktop/image-hero-blackcup.jpg`,
+  ]
   // Get keys and use it to update Form menu
   const stateKeys = Object.keys(state);
 
@@ -89,13 +97,17 @@ function Subscription() {
   }, [state]);
 
   return (
-    <div>
+    <CreateWrapper>
       {openModal && <CheckOutModal state={state} isCapsule={isCapsule} amount={amount} />}
       {/* Subscription Banner section */}
-      <CreateWrapper>
-        <h2 className="create__header">Create a plan</h2>
-        <p className="create__text">Coffee the way you wanted it to be. For coffee delivered tomorrow, or next week. For whatever brew method you use. For choice, for convenience, for quality.</p>
-      </CreateWrapper>
+      {/* <CreateWrapper> */}
+        <BannerSection
+          title={`Create a plan`}
+          body={`Coffee the way you wanted it to be. For coffee delivered tomorrow, or next week. For whatever brew method you use. For choice, for convenience, for quality.`}
+          button={false}
+          imageUrls={imageUrls}
+        />
+      {/* </CreateWrapper> */}
 
       {/* Subscription Steps section */}
       <SubscriptionWrapper>
@@ -198,7 +210,7 @@ function Subscription() {
           </div>
         </div>
       </QuestionsWrapper>
-    </div>
+    </CreateWrapper>
   )
 }
 

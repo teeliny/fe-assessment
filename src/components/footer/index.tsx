@@ -35,7 +35,7 @@ const FooterWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 3rem 1rem;
+  margin: 3rem 1.5rem;
   padding-top: 3.4rem;
   padding-bottom: 3.4rem;
   background-color: #2C343E;
@@ -72,6 +72,8 @@ const FooterWrapper = styled.div`
   }
 
   @media(min-width: 401px) {
+    margin: 0 2.5rem;
+    
     .footer__menu {
       flex-direction: row;
       gap: 2.5rem;
@@ -81,7 +83,7 @@ const FooterWrapper = styled.div`
 
   @media(min-width: 769px) {
     flex-direction: row;
-    margin: 0 2rem;
+    margin: 0 5rem;
     padding: 2rem 3rem;
 
     .footer__menu {

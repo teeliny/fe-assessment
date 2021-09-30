@@ -1,17 +1,22 @@
 import React from 'react';
-import {HomeWrapper, BannerWrapper, CollectionWrapper, ChooseWrapper, SubscriptionWrapper} from '../components/styles/home.style'
+import BannerSection from '../components/banner';
+import {HomeWrapper, CollectionWrapper, ChooseWrapper, SubscriptionWrapper} from '../components/styles/home.style'
 
 function Home() {
+  const imageUrls = [
+    `${process.env.PUBLIC_URL}/assets/home/mobile/image-hero-coffeepress.jpg`,
+    `${process.env.PUBLIC_URL}/assets/home/tablet/image-hero-coffeepress.jpg`,
+    `${process.env.PUBLIC_URL}/assets/home/desktop/image-hero-coffeepress.jpg`,
+  ]
   return (
     <HomeWrapper>
-      <BannerWrapper>
-        <h2 className="banner__header">Great coffee made simple.</h2>
-
-        <p className="banner__text">Start your mornings with the world’s best coffees. Try our expertly curated artisan 
-        coffees from our best roasters delivered directly to your door, at your schedule.</p>
-
-        <button className="banner__button">Create your plan</button>
-      </BannerWrapper>
+      <BannerSection
+        title={`Great coffee made simple.`}
+        body={`Start your mornings with the world’s best coffees. Try our expertly curated artisan 
+        coffees from our best roasters delivered directly to your door, at your schedule.`}
+        button={true}
+        imageUrls={imageUrls}
+      />
 
       <CollectionWrapper>
         <h1 className="collection__header">

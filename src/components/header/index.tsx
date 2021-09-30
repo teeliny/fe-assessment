@@ -78,7 +78,7 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 1rem;
+  margin: 1rem 1.5rem;
 
   .logo {
     width: calc(50vw - 1rem);
@@ -110,8 +110,8 @@ const HeaderContainer = styled.div`
     display: none;
   }
 
-  @media(min-width: 500px) {
-    margin: 1rem 2rem;
+  @media(min-width: 401px) {
+    margin: 1rem 2.5rem;
 
     .logo {
       width: calc(33.33vw - 1.5rem);
@@ -140,6 +140,8 @@ const HeaderContainer = styled.div`
   }
 
   @media(min-width: 769px) {
+    margin: 1rem 5rem;
+    
     .logo {
       width: calc(20vw - 2rem)
     }

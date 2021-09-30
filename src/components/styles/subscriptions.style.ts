@@ -1,41 +1,14 @@
 import styled from 'styled-components';
 
 export const CreateWrapper = styled.div`
-  background-image: url(${process.env.PUBLIC_URL + '/assets/plan/desktop/image-hero-blackcup.jpg'});
-  background-size: 120vw 100%;
-  background-repeat: no-repeat;
-  background-position: center; 
-  margin: 0 1rem;
-  padding: 4rem 1.5rem 7rem 1.5rem;
-  border-radius: 10px;
-  color: #ffffff;
+  margin: 0 1.5rem;
 
-  .create__header {
-    margin-bottom: 2rem;
-    color: #ffffff;
-  }
-
-  .create__text {
-    color: #c9c7c1;
-  }
-  
   @media(min-width: 401px) {
-    padding: 6rem 3rem 6rem 3rem;
-    .create__text {
-      width: 60%;
-    }
+    margin: 0 2.5rem;
   }
 
   @media(min-width: 769px) {
-    margin: 0 2rem;
-    padding: 6rem;
-    .create__header {
-      margin-bottom: 3rem;
-    }
-    .create__text {
-      width: 30%;
-      font-size: 20px;
-    }
+    margin: 0 5rem;
   }
 `;
 
@@ -123,7 +96,7 @@ export const SubscriptionWrapper = styled.div`
   }
 
   @media(min-width: 769px) {
-    margin: 8rem 2rem;
+    margin: 8rem auto;
     padding: 6rem;
 
     .circle__wrapper {
@@ -151,7 +124,7 @@ export const SubscriptionWrapper = styled.div`
 `;
 
 export const QuestionsWrapper = styled.div`
-  margin: 2rem 1rem;
+  margin: 2rem auto;
   display: block;
 
   
@@ -246,7 +219,7 @@ export const QuestionsWrapper = styled.div`
   }
 
   @media(min-width: 769px) {
-    margin: 10rem;
+    padding: 0 6rem;
     display: grid;
     grid-template-columns: 16rem 1fr;
     gap: 7rem;
