@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 function HeaderComponent() {
@@ -23,11 +24,13 @@ function HeaderComponent() {
   return (
     <HeaderContainer>
       <div className="header__logo">
-        <img
-          className="logo"
-          src={`${process.env.PUBLIC_URL}/assets/shared/desktop/logo.svg`}
-          alt="logo"
-        />
+        <Link to='/'>
+          <img
+            className="logo"
+            src={`${process.env.PUBLIC_URL}/assets/shared/desktop/logo.svg`}
+            alt="logo"
+          />
+        </Link>
       </div>
       
       <div className="header__menu">
@@ -45,9 +48,9 @@ function HeaderComponent() {
             alt="close menu"
             />
             <div className="menu__container">
-              <h4><a href="/">home</a></h4>
-              <h4 className="menu__separator"><a href="/about">about us</a></h4>
-              <h4><a href="/subscription">create your plan</a></h4>
+              <h4><Link to="/">home</Link></h4>
+              <h4 className="menu__separator"><Link to="/about">about us</Link></h4>
+              <h4><Link to="/subscription">create your plan</Link></h4>
             </div>
           </>
         ) : (
@@ -60,9 +63,9 @@ function HeaderComponent() {
         </div>
         {/* Tablet and desktop Menu Section */}
         <div className="main__menu">
-          <h4><a href="/">home</a></h4>
-          <h4 className="main__separator"><a href="/about">about us</a></h4>
-          <h4><a href="/subscription">create your plan</a></h4>
+          <h4><Link to="/">home</Link></h4>
+          <h4 className="main__separator"><Link to="/about">about us</Link></h4>
+          <h4><Link to="/subscription">create your plan</Link></h4>
         </div>
       </div>
     </HeaderContainer>

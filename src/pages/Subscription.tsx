@@ -89,7 +89,7 @@ function Subscription() {
   }, [state]);
 
   return (
-    <div style={{width: '100vw'}}>
+    <div>
       {openModal && <CheckOutModal state={state} isCapsule={isCapsule} amount={amount} />}
       {/* Subscription Banner section */}
       <CreateWrapper>
@@ -188,7 +188,13 @@ function Subscription() {
           </SummaryWrapper>
           {/* Submit Button Section  */}
           <div className="submit__button">
-            <button disabled={!isSubmitting} onClick={() => setOpenModal(true)}>Create my plan!</button>
+            <button
+              disabled={!isSubmitting}
+              onClick={() => {
+                setOpenModal(true);
+                window.scrollTo(0, 0);
+              }}
+            >Create my plan!</button>
           </div>
         </div>
       </QuestionsWrapper>

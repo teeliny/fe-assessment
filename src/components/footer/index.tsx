@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 function FooterComponent() {
@@ -13,9 +14,9 @@ function FooterComponent() {
       </div>
       {/* Menu Section  */}
       <div className="footer__menu">
-        <h4><a href="/">home</a></h4>
-        <h4><a href="/about">about us</a></h4>
-        <h4><a href="/subscription">create your plan</a></h4>
+        <h4><Link to="/">home</Link></h4>
+        <h4><Link to="/about">about us</Link></h4>
+        <h4><Link to="/subscription">create your plan</Link></h4>
       </div>
       {/* Social Icons */}
       <div className="social__icons">
@@ -23,7 +24,6 @@ function FooterComponent() {
         <img src={`${process.env.PUBLIC_URL}/assets/shared/desktop/icon-twitter.svg`} alt="facebook" className="social_item" />
         <img src={`${process.env.PUBLIC_URL}/assets/shared/desktop/icon-instagram.svg`} alt="facebook" className="social_item" />
       </div>
-      
     </FooterWrapper>
   )
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import {Link } from 'react-router-dom'
 import styled from 'styled-components';
 
 interface IState {
@@ -30,7 +31,7 @@ function CheckOutModal({ state, isCapsule, amount }: { state: IState; isCapsule:
         </p>
         <div className="modal__button">
           <h3 className="amount">${amount.toFixed(2)} / mo</h3>
-          <button>Checkout</button>
+          <button><Link to='/'>Checkout</Link></button>
         </div>
         
       </div>
@@ -39,15 +40,17 @@ function CheckOutModal({ state, isCapsule, amount }: { state: IState; isCapsule:
 }
 
 const ModalWrapper = styled.div`
-  /* position: absolute; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 9;
   display: flex;
   flex: 1;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: auto;
-  background: #ff0;
+  height: 100%;
 
   .inner__wrapper {
     border-radius: 0.5rem;
@@ -90,8 +93,10 @@ const ModalWrapper = styled.div`
     margin: 3rem auto;
   }
 
-  .modal__button button {
-    font-size: 18px;
+  .modal__button button a {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #FEFCF7;
   }
 
   @media(min-width: 401px) {
