@@ -125,7 +125,6 @@ const HeaderContainer = styled.div`
       display: flex;
       justify-content: flex-end;
       gap: 4rem;
-      /* width: 35vw; */
     }
 
     .main__menu h4 {

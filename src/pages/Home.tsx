@@ -1,6 +1,6 @@
 import React from 'react';
 import BannerSection from '../components/banner';
-import {HomeWrapper, CollectionWrapper, ChooseWrapper, SubscriptionWrapper} from '../components/styles/home.style'
+import { HomeWrapper, CollectionWrapper, ChooseWrapper, SubscriptionWrapper } from '../components/styles/home.style';
 
 function Home() {
   const imageUrls = [
